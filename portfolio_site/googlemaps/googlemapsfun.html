@@ -1,0 +1,32 @@
+<!-- Google Maps Project -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale = 1.0, user-scalable = no">
+	<title>Google Maps API Project</title>
+	<link href="../css/bootstrap-3.1.1-dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="../css/bootstrap-3.1.1-dist/css/bootstrap-theme.css" rel="stylesheet" type="text/css">	
+	<link href="../css/my-styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="locations">
+		<p>Static/Dynamic Map</p>
+		<p class="static_map">
+			<img src="http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyBc-gr3XtQHVmYvEFmD5FYm9vXhmBFGfyU&size=400x300&sensor=false&markers=1216+Spring+Street,+Madison,+WI+53715" alt="1216 Spring Street, Madison, WI 53715 ">
+		</p>
+		<address>
+			1216 Spring Street, Madison, WI 53715
+		</address>
+	</div>
+ 
+
+
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript">
+		$("#locations").prepend('<iframe id="map" src="map.html" seamless="seamless" scrolling="no"></iframe>');
+		$(".static_map").remove();
+
+	</script>
+</body>	
+</hmtl>

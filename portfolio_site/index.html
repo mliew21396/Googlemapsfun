@@ -1,0 +1,158 @@
+<!--Mat's Site -->
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mat Liew's Portfolio</title>
+	<link href="css/bootstrap-3.1.1-dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="css/bootstrap-3.1.1-dist/css/bootstrap-theme.css" rel="stylesheet" type="text/css">	
+	<link href="css/my-styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<!--Navbar -->
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<a class="navbar-brand text-muted" href="#">Matty</a>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#">About Matty</a></li>
+					<li><a href="googlemaps/googlemapsfun.html">Google Maps API Fun</a></li>
+					<li class="dropdown">
+						<a data-toggle="dropdown" data-target="#" href="">Treehouse</a>
+						<ul class="dropdown-menu dropdown-menu-right">
+			                <li><a href="#">About Treehouse</a></li>
+			                <li><a href="#">Video Library</a></li>
+			                <li><a href="#">Learning Adventures</a></li>
+			                <li class="divider"></li>
+			                <li><a href="#">Plans &amp; Pricing</a></li>
+			            </ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- End navbar -->
+
+	<!--Carousel -->
+	<div id="myCarousel" class="carousel slide jumbotron">
+		<div class="container">
+			<ol class="carousel-indicators">
+				<li class="active" data-target="#myCarousel" data-slide-to="0"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="item active">
+					<h1> Slide 1 </h1>
+					<p class="lead"> Cool picutre 1</p>
+					<p class="btn-group">
+						button
+					</p>
+				</div>
+				<div class="item">
+					<img src="img/Woodland Creatures2.jpg" class="img-responsive img-rounded" alt="Responsive image">
+				</div>
+				<div class="item">
+					<h1>Cool Slide 3</h1>
+					<p>Info on cool slide 3</p>
+				</div>
+			</div>
+		</div>
+		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+			<span class="icon-prev"></span>
+		</a>
+		<a class="right carousel-control" href="#myCarousel" data-slide="next">
+			<span class="icon-next"></span>
+		</a>
+	</div>
+
+	<!--End carousel -->
+
+	<!--Main Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h2>Paragraph 1</h2>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat,</p>
+			</div>
+			<div class="col-sm-4">
+				<h2>Paragraph 2</h2>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat,</p>
+			</div>
+			<div class="col-sm-4">
+				<h2>Paragraph 3</h2>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat,</p>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-sm-6">
+				<h3>Want to see an Awesome video!?</h3>
+				<p>Watch as the video below toggles into a modal</p>
+				<div class="row">
+					<div class="col-sm-6">
+						<a data-toggle="modal" href="#videoModal">
+							<img class="img-responsive hidden-xs" src="img/Link to Modal.jpg">	
+						</a>
+					</div>
+					<div>
+						<p>Access is easy</p>
+						<p><a href="#">Visit some random page</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Button -->
+		<div class="callout"> 
+	        <a class="btn btn-primary btn-lg">
+	          Cool button<span class="glyphicon glyphicon-arrow-right"></span>
+	        </a>
+	    </div>
+		<!-- End Button -->
+
+		<!-- Footer -->
+		<footer class="main-footer">
+			<p>&copy; 2014 Mat Liew, Inc.</p>
+		</footer>
+		<!-- End Footer -->
+	</div>
+	
+	<!-- End Main Content -->
+
+
+	<!--Jumbotron -->
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<h1>Welcome to My Profile Page</h1>
+				<p > Learning to program from the very beginning</p>
+			</div>
+		</div>
+	</div>
+
+	<h1>HI</h1>
+
+	<!--Video Modal-->
+	<div class="modal fade" id="videoModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"> Learn how to make this app!</h4>
+				</div>
+				<div class="modal-body">
+					<iframe width="500" height="281" src="http://www.youtube.com/embed/emPDO1USArc" frameborder="0"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="js/bootstrap-3.1.1-dist/bootstrap.min.js"></script>
+</body>
+</html>

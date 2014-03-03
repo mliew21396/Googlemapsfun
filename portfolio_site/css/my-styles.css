@@ -1,0 +1,45 @@
+/* PORTFOLIO STUFF*/
+/*Layout */
+body {
+	padding-top:0px;
+}
+
+/*Logos & Icons */
+.main-logo {
+overflow:hidden;
+
+}
+/* Dropdown */
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
+
+/* Jumbotron */
+.jumbotron {
+	text-align: center;
+	margin-bottom: 70px;
+	height:450px; /**************************modified myself*/
+}
+
+/* Carousel
+================================ */
+
+.carousel-indicators {
+	bottom: 0;
+}
+.carousel-indicators .active {
+	background-color: #222;
+}
+.carousel-indicators li {
+	border-color: #222;
+}
+.carousel-inner .item img {
+	margin:0 auto;
+}
+
+/*GOOGLE MAPS API STUFF*/
+#map {
+	width:50%;
+	min-height: 300px;
+	margin: 0 0 4% 0;					
+}
