@@ -1,0 +1,17 @@
+CREATE SCHEMA IF NOT EXISTS banks_db DEFAULT CHARACTER SET = utf8;
+USE banks_db;
+CREATE TABLE us_bank (
+	title VARCHAR(50) COLLATE utf8_unicode_ci DEFAULT NULL, 
+	branch VARCHAR(50) COLLATE utf8_unicode_ci DEFAULT NULL, 
+	address VARCHAR(50) COLLATE utf8_unicode_ci DEFAULT NULL, 
+	city VARCHAR(50) COLLATE utf8_unicode_ci DEFAULT NULL, 
+	state VARCHAR(50) COLLATE utf8_unicode_ci DEFAULT NULL, 
+	zip INTEGER DEFAULT NULL, 
+	phone VARCHAR(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO us_bank (title, branch, address, city, state, zip, phone) VALUES('University Square Madison Office', 'Branch', '389 E Campus Mall', 'Madison', 'WI', 53715, '608-255-0836');
+INSERT INTO us_bank (title, branch, address, city, state, zip, phone) VALUES('Capitol Square Madison Office', 'Branch', '1 S Pinckney St', 'Madison', 'WI', 53703, '608-252-4000');
+INSERT INTO us_bank (title, branch, address, city, state, zip, phone) VALUES('Capitol Square Remote Drive Up Office', 'Branch', '22 N Webster', 'Madison', 'WI', 53703, '608-252-4425');
+INSERT INTO us_bank (title, branch, address, city, state, zip, phone) VALUES('Hilldale Madison Office', 'Branch', '3609 University Ave', 'Madison', 'WI', 53705, '608-233-7944');
+INSERT INTO us_bank (title, branch, address, city, state, zip, phone) VALUES('Fitchburg Madison Office', 'Branch', '2961 Yarmouth Greenway Dr', 'Madison', 'WI', 53711, '608-270-4500');
