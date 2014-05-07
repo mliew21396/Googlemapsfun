@@ -6,16 +6,19 @@
 	<title>Google Maps API Project</title>
 	<link href="../css/bootstrap-3.1.1-dist/css/bootstrap.css" rel="stylesheet" type="text/css">
 	<link href="../css/bootstrap-3.1.1-dist/css/bootstrap-theme.css" rel="stylesheet" type="text/css">	
-	<link href="../css/my-styles.css" rel="stylesheet" type="text/css">
+	<link href="../css/googlemaps-styles.css" rel="stylesheet" type="text/css">
 </head>
 <?php
+
+$locations = array();//initalize the locations array
+$near_locations = array();//initalize the near_locations array
 //grabs value from dropdown and places in $distance
 if (!empty($_GET)) {
-		$distance = filter_var($_GET['distance'], FILTER_SANITIZE_NUMBER_INT);
-		echo $distance;
-//grabs search_term string
+		$distance = filter_var($_GET['radius'], FILTER_SANITIZE_NUMBER_INT);
+};		
+//grabs search term zip and queries database for all locations associated distances
 $search_term = "";
-if(isset($_GET["s"])) {
+if(isset($_GET["s"]) && is_numeric($_GET["s"])) {
 	$search_term = trim($_GET["s"]);
 	if ($search_term!= "") {
 		require_once("../inc/locations.php");
@@ -23,53 +26,77 @@ if(isset($_GET["s"])) {
 	}
 }
 
+//takes the locations array from the database and filters out not-nearby locations
+for ($i=0; $i < count($locations) ; $i++) {
+	if ($locations[$i]["Distance"] < $_GET['radius']) {
+		//echo "This matches";
+		$near_locations[] = $locations[$i];
+	};
+};
+//sanitizing $_GET['radius'] to $dropdown
+if (!empty($_GET['radius'])) {
+	$dropdown = $_GET['radius'];
+} else {
+	$dropdown = 1;
+};
+
 ?>
 <body>
-	<!--Search Bar div-->
-	<div>
-		<h1>Search</h1>
-		<form method="get" >
-			<input type="text" name="s" value ="<?php echo htmlspecialchars($search_term);?>">
-			<select name="distance">
-				<option>1 mile away</option>
-				<option>5 miles away</option>
-				<option>10 miles away</option>
-			</select>
-			<input type="submit"value="Go">
-		</form>
-	</div>
 	<!--Google Maps div-->
 	<div id="locations">
-
-		<p>Static/Dynamic Map</p>
 		<p class="static_map">
 			<img src="http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyBc-gr3XtQHVmYvEFmD5FYm9vXhmBFGfyU&size=400x300&sensor=false&markers=1216+Spring+Street,+Madison,+WI+53715" alt="1216 Spring Street, Madison, WI 53715 ">
-		</p>
-		<address>
-			1216 Spring Street, Madison, WI 53715
-		</address>
-		<!--
-		<address>
-			3419 Cross Creek Circle, Wooster, OH 44691
-		</address>
-		<address>
-			2970 North Sheridan Road, Chicago, IL 60657
-		</address>
-		-->
+		</p>	
+	</div>	
+	<!--Search Bar div-->
+	<div id="container">
+		<div>
+			<h1>Search</h1>
+			<form method="get" >
+				<input type="text" class="boxes" name="s" 
+				onFocus="this.value =''" onblur="this.value ='Enter Zip Code'"
+				value ="<?php if(isset($_GET['s'])) {
+					echo htmlspecialchars($search_term);
+				} else {
+					echo "Enter Zip Code";
+				};?>">
+				<select name="radius" class="boxes">
+					<option value="1"
+						<?php if ($dropdown==1) {
+							echo "selected='selected'";
+						}?>>
+						1 mile away</option>
+					<option value="5"
+						<?php if ($dropdown==5) {
+							echo "selected='selected'";
+						}?>>
+						5 miles away</option>
+					<option value="10"
+						<?php if ($dropdown==10) {
+							echo "selected='selected'";
+						}?>>
+						10 miles away</option>										
+				</select>
+				<input type="submit" class="btn btn-primary btn-med" value="Submit">
+			</form>
+		</div>
+	</div>
 	<!--Search Address Results div-->
-	
+	<div id="searchresults">	
 		<?php
 			if($search_term != "") {
-				if (!empty($locations)) {
+				if (!empty($near_locations)) {
 					echo'<ul>';
-					foreach ($locations as $location) {
+					foreach ($near_locations as $near_location) {
 						?><li>
-	        				<p><?php echo $location["title"]; ?></p>
+	        				<p><?php echo $near_location["Title"]; ?></p>
 	        				<address>
-	        					<?php echo $location["address"]?>, 
-	        					<?php echo $location["city"]?>, 
-	        					<?php echo $location["state"]?> 
-	        					<?php echo $location["zip"]?>
+	        					<?php echo $near_location["Address"]?>, 
+	        					<?php echo $near_location["City"]?>, 
+	        					<?php echo $near_location["State"]?> 
+	        					<?php echo $near_location["Zip"]?>
+	        					<br>
+	        					<?php echo "Distance Away: " . $near_location["Distance"] . " miles"?>	        					
 	        				</address>
 	    				</li><?php	
 					}
@@ -78,13 +105,10 @@ if(isset($_GET["s"])) {
 					?><p> No products were found matching that search term.</p><?php 
 				}	
 			}
-		
 		?>
-	</div>
-
+	</div>	
 	<script type="text/javascript" src="../js/jquery.js"></script>
-	<script type="text/javascript">
-		
+	<script type="text/javascript">	
 		$("#locations").each(function(i) {
 			$(this).prepend('<iframe id="map" src="map.html" seamless="seamless" scrolling="no"></iframe>');
 			console.log(i);

@@ -32,12 +32,12 @@
 	        bounds = new google.maps.LatLngBounds();
 	    }
 	    function addMarkerToMap(location, address){
-	    	var image = "../img/banana.gif";
+	    	var image = "../img/banana5.gif";
 	    	var marker = new google.maps.Marker({map: map, position: location, icon:image}
 	    		);
 	    	bounds.extend(location);
 	    	map.fitBounds(bounds);
-	    	map.setZoom(12);
+	    	//map.setZoom(12);
 	    	var infoWindow = new google.maps.InfoWindow({ content : address});
 	    	google.maps.event.addListener(marker, "click", function(){
 	    		infoWindow.open(map, marker);	
@@ -47,6 +47,13 @@
       	initialize();
 
       	$("address", parent.window.document).each(function(){
+      		var $address = $(this);
+      		geocoder.geocode({address: $address.text()}, function(results, status){
+      			if (status == google.maps.GeocoderStatus.OK) addMarkerToMap(results[0].geometry.location, $address.html());
+
+      		});
+      	});
+      	$("ul/li/address", parent.window.document).each(function(){
       		var $address = $(this);
       		geocoder.geocode({address: $address.text()}, function(results, status){
       			if (status == google.maps.GeocoderStatus.OK) addMarkerToMap(results[0].geometry.location, $address.html());

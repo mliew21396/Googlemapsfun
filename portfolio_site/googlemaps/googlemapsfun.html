@@ -9,7 +9,38 @@
 	<link href="../css/bootstrap-3.1.1-dist/css/bootstrap-theme.css" rel="stylesheet" type="text/css">	
 	<link href="../css/my-styles.css" rel="stylesheet" type="text/css">
 </head>
+<?php
+
+$search_term = "";
+if(isset($_GET["s"])) {
+	$search_term = trim($_GET["s"]);
+	if ($search_term!= "") {
+		require_once("../inc/locations.php");
+		get_locations_search($search_term);
+		$products = get_locations_search($search_term);
+	}
+}
+?>
 <body>
+
+	<div>
+		<h1>Search</h1>
+		<form method="get" action="./">
+			<input type="text" name="s" value ="<?php echo htmlspecialchars($search_term);?>">
+			<input type="submit"value="Go">
+		</form>
+		<?php
+			if($search_term != "") {
+				if (!empty($locations)) {
+					echo'<ul>';
+					foreach ($locations as $location) {
+						echo get_list_view_html($location);
+					}
+					echo '</ul>';
+			}
+		?>
+	</div>
+
 	<div id="locations">
 		<p>Static/Dynamic Map</p>
 		<p class="static_map">
@@ -18,15 +49,23 @@
 		<address>
 			1216 Spring Street, Madison, WI 53715
 		</address>
+		<address>
+			3419 Cross Creek Circle, Wooster, OH 44691
+		</address>
+		<address>
+			2970 North Sheridan Road, Chicago, IL 60657
+		</address>
 	</div>
- 
 
 
 	<script type="text/javascript" src="../js/jquery.js"></script>
 	<script type="text/javascript">
-		$("#locations").prepend('<iframe id="map" src="map.html" seamless="seamless" scrolling="no"></iframe>');
+		
+		$("#locations").each(function(i) {
+			$(this).prepend('<iframe id="map" src="map.html" seamless="seamless" scrolling="no"></iframe>');
+			console.log(i);
+		});
 		$(".static_map").remove();
-
 	</script>
 </body>	
 </hmtl>
