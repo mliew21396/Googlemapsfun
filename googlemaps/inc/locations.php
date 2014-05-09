@@ -1,9 +1,10 @@
 <?php
+//--Model
 //searches database and returns $matchess which contains all locations with distances
 //away from search_term zip
 function get_locations_search($s) {
     
-    $true_zip = [];
+    $true_zip = array();
 
     require("database.php");
 
@@ -32,67 +33,72 @@ function get_locations_search($s) {
     //inital query to take search_term zip and associate with latitudes and 
     //longitudes into $zipss
     if (is_numeric($s)){
-        try {
-            $results = $db->query("
-                SELECT *
-                FROM zips");
-        } catch (Exception $e) {
-            echo "Data could not be retrieved from the datebase.";
-            exit;
-        };
-        $zipss = $results->fetchAll(PDO::FETCH_ASSOC);
-        
-        //the math to calculate the distance between the search_term and entire database
-        $distances_from_results = calc_distance($zipss,$matches);
-
-        //grab zip codes that match search term
-        foreach ($distances_from_results as $key1 => $dist) {
-            if ($dist['0'] == $s) {
-                $true_zip[] = $dist;
-             };
-        };
-
-        //query database for rest of properties for matched locations and then add
-        //distance onto end of array for each match
-        for ($i=0; $i < count($true_zip) ; $i++) {
-            $true_zip2[] = ($true_zip[$i]['1']);
-        };
-
-        //creates place_holder array for mysql query comparison with true_zip
-        $place_holders = implode(',', array_fill(0, count($true_zip2), '?'));
-
-            //query to grab all locations with true_zip
+        $num_length = strlen((string)$s);    
+        if ($num_length == 5) {
             try {
-                    
-                $results = $db->prepare("
+                $results = $db->query("
                     SELECT *
-                    FROM us_bank
-                    WHERE Title IN ($place_holders)");
-                $results->execute($true_zip2);
-                $matchess = $results->fetchAll(PDO::FETCH_ASSOC);                                                  
-                
-                /*
-                $results = $db->prepare("
-                    SELECT *
-                    FROM us_bank
-                    WHERE Title LIKE ?");
-                        for ($i=0; $i < count($true_zip) ; $i++) {                     
-                            $results->bindValue(1,"%" . $true_zip[$i]['1'] . "%");
-                            echo "$i";
-                        };
-                $results->execute();                    
-                $matchess[] = $results->fetchAll(PDO::FETCH_ASSOC);
-                */
-
-                //adds the distance from true_zip array to the main matchess array
-                for ($i=0; $i < count($true_zip) ; $i++) {                                                    
-                   $matchess[$i]['Distance']=$true_zip[$i]['2'];                                
-                };                               
-                                        
+                    FROM zips");
             } catch (Exception $e) {
                 echo "Data could not be retrieved from the datebase.";
                 exit;
-            };    
+            };
+            $zipss = $results->fetchAll(PDO::FETCH_ASSOC);
+            
+            //the math to calculate the distance between the search_term and entire database
+            $distances_from_results = calc_distance($zipss,$matches);
+
+            //grab zip codes that match search term
+            foreach ($distances_from_results as $key1 => $dist) {
+                if ($dist['0'] == $s) {
+                    $true_zip[] = $dist;
+                 };
+            };
+
+            //query database for rest of properties for matched locations and then add
+            //distance onto end of array for each match
+            for ($i=0; $i < count($true_zip) ; $i++) {
+                $true_zip2[] = ($true_zip[$i]['1']);
+            };
+
+            //creates place_holder array for mysql query comparison with true_zip
+            $place_holders = implode(',', array_fill(0, count($true_zip2), '?'));
+
+                //query to grab all locations with true_zip
+                try {
+                        
+                    $results = $db->prepare("
+                        SELECT *
+                        FROM us_bank
+                        WHERE Title IN ($place_holders)");
+                    $results->execute($true_zip2);
+                    $matchess = $results->fetchAll(PDO::FETCH_ASSOC);                                                  
+                    
+                    /*
+                    $results = $db->prepare("
+                        SELECT *
+                        FROM us_bank
+                        WHERE Title LIKE ?");
+                            for ($i=0; $i < count($true_zip) ; $i++) {                     
+                                $results->bindValue(1,"%" . $true_zip[$i]['1'] . "%");
+                                echo "$i";
+                            };
+                    $results->execute();                    
+                    $matchess[] = $results->fetchAll(PDO::FETCH_ASSOC);
+                    */
+
+                    //adds the distance from true_zip array to the main matchess array
+                    for ($i=0; $i < count($true_zip) ; $i++) {                                                    
+                       $matchess[$i]['Distance']=$true_zip[$i]['2'];                                
+                    };                               
+                                            
+                } catch (Exception $e) {
+                    echo "Data could not be retrieved from the datebase.";
+                    exit;
+                };    
+        } else {
+            return null;
+        };
     };
     return $matchess;
 };

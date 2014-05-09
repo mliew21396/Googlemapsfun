@@ -164,4 +164,3 @@ function calc_distance($point1, $point2) {
     return $results;  // Returned using the units used for $radius.
 };
 
-?>

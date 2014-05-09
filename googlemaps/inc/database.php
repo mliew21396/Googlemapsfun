@@ -1,6 +1,8 @@
 <?php
+//Model
 	try {
-		$db = new PDO("mysql:host=localhost;dbname=u921722718_banks;port=3306","root","root");
+		$db = new PDO("mysql:host=localhost;dbname=u921722718_banks;port=3306","u921722718_admin","westwood");
+		//$db = new PDO("mysql:host=localhost;dbname=u921722718_banks;port=3306","root","root");
 		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 		$db->exec("SET NAMES 'utf8'");
 	} catch (Exception $e) {

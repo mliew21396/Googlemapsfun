@@ -53,14 +53,15 @@
 
       		});
       	});
-      	$("ul/li/address", parent.window.document).each(function(){
-      		var $address = $(this);
-      		geocoder.geocode({address: $address.text()}, function(results, status){
-      			if (status == google.maps.GeocoderStatus.OK) addMarkerToMap(results[0].geometry.location, $address.html());
+      	if ($('.address').length > 0) {
+	      	$("ul/li/address", parent.window.document).each(function(){
+	      		var $address = $(this);
+	      		geocoder.geocode({address: $address.text()}, function(results, status){
+	      			if (status == google.maps.GeocoderStatus.OK) addMarkerToMap(results[0].geometry.location, $address.html());
 
-      		});
-      	});
-      	
+	      		});
+	      	})
+      	};
       	google.maps.event.addDomListener(map, "idle", function() {
       		center = map.getCenter();
       	});

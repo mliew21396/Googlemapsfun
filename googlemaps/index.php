@@ -1,4 +1,5 @@
 <!-- Google Maps Project -->
+<!--View-->
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -14,31 +15,22 @@
 $locations = array();//initalize the locations array
 $near_locations = array();//initalize the near_locations array
 //grabs value from dropdown and places in $distance
-?><p>test1<p><?php
 if (!empty($_GET)) {
 		$distance = filter_var($_GET['radius'], FILTER_SANITIZE_NUMBER_INT);
 };		
 //grabs search term zip and queries database for all locations associated distances
-?><p>test2<p><?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 $search_term = "";
-echo $search_term."hi";
 if(isset($_GET["s"]) && is_numeric($_GET["s"])) {
-	echo $search_term."hi2";
 	$search_term = trim($_GET["s"]);
-	echo $search_term."hi3";
 	if ($search_term!= "") {
-		echo $search_term."hi4";
-		require_once("/inc/locations.php");
-		echo $search_term."hi5";
+		require_once("inc/locations.php");
 		$locations = get_locations_search($search_term);
-		echo $search_term."hi6";
 	}
 }
 
 //takes the locations array from the database and filters out not-nearby locations
-?><p>test3<p><?php
 for ($i=0; $i < count($locations) ; $i++) {
 	if ($locations[$i]["Distance"] < $_GET['radius']) {
 		//echo "This matches";
@@ -46,7 +38,6 @@ for ($i=0; $i < count($locations) ; $i++) {
 	};
 };
 //sanitizing $_GET['radius'] to $dropdown
-?><p>test4<p><?php
 if (!empty($_GET['radius'])) {
 	$dropdown = $_GET['radius'];
 } else {
@@ -66,7 +57,7 @@ if (!empty($_GET['radius'])) {
 			<form method="get" >
 				<input type="text" class="boxes" name="s" 
 				onFocus="this.value =''" onblur="this.value ='Enter Zip Code'"
-				value ="<?php if(isset($_GET['s'])) {
+				value ="<?php if(isset($locations)) {
 					echo htmlspecialchars($search_term);
 				} else {
 					echo "Enter Zip Code";

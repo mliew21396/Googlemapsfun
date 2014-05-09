@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--Model-->
 <html>
 <head>
 	<title>Map</title>
@@ -6,7 +7,8 @@
 
 	html, body, #map {
 		width:100%;
-		height: 100%
+		height: 100%;
+		margin: 0;
 	}
 	</style>
 </head>
@@ -38,7 +40,15 @@
 	    	bounds.extend(location);
 	    	map.fitBounds(bounds);
 	    	//map.setZoom(12);
-	    	var infoWindow = new google.maps.InfoWindow({ content : address});
+	    	//add code to define content of infowindow
+	    	var content = 	'<div id = "content" style="">'+
+	    						'<div id="bodyContent">'+
+	    							'<h1>Header</h1>'+
+	    							'<br>'+
+	    							'<p>'+address+'</p>'+
+	    						'</div>'+
+	    					'</div>'
+	    	var infoWindow = new google.maps.InfoWindow({ content : content});
 	    	google.maps.event.addListener(marker, "click", function(){
 	    		infoWindow.open(map, marker);	
 	    	});
