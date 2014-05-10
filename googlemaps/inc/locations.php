@@ -54,13 +54,16 @@ function get_locations_search($s) {
                     $true_zip[] = $dist;
                  };
             };
-
-            //query database for rest of properties for matched locations and then add
-            //distance onto end of array for each match
-            for ($i=0; $i < count($true_zip) ; $i++) {
-                $true_zip2[] = ($true_zip[$i]['1']);
+            //first check if searched zip code is in database
+            //second, query database for rest of properties for matched locations and
+            //then add distance onto end of array for each match
+            if (!empty($true_zip)) {
+                for ($i=0; $i < count($true_zip) ; $i++) {
+                    $true_zip2[] = ($true_zip[$i]['1']);
+                };
+            } else {
+                return null;
             };
-
             //creates place_holder array for mysql query comparison with true_zip
             $place_holders = implode(',', array_fill(0, count($true_zip2), '?'));
 
