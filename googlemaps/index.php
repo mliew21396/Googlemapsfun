@@ -10,39 +10,8 @@
 	<link href="css/googlemaps-styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<?php
-
-$locations = array();//initalize the locations array
-$near_locations = array();//initalize the near_locations array
-//grabs value from dropdown and places in $distance
-if (!empty($_GET)) {
-		$distance = filter_var($_GET['radius'], FILTER_SANITIZE_NUMBER_INT);
-};		
-//grabs search term zip and queries database for all locations associated distances
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-$search_term = "";
-if(isset($_GET["s"]) && is_numeric($_GET["s"])) {
-	$search_term = trim($_GET["s"]);
-	if ($search_term!= "") {
-		require_once("inc/locations.php");
-		$locations = get_locations_search($search_term);
-	}
-}
-
-//takes the locations array from the database and filters out not-nearby locations
-for ($i=0; $i < count($locations) ; $i++) {
-	if ($locations[$i]["Distance"] < $_GET['radius']) {
-		//echo "This matches";
-		$near_locations[] = $locations[$i];
-	};
-};
-//sanitizing $_GET['radius'] to $dropdown
-if (!empty($_GET['radius'])) {
-	$dropdown = $_GET['radius'];
-} else {
-	$dropdown = 1;
-};
+<?php 
+	require("inc/control.php");
 ?>
 	<!--Google Maps div-->
 	<div id="locations">
@@ -84,35 +53,56 @@ if (!empty($_GET['radius'])) {
 		</div>
 	</div>
 	<!--Search Address Results div-->
-	<div id="searchresults">	
-		<?php
-			if($search_term != "") {
-				if (!empty($near_locations)) {
-					echo'<ul>';
-					foreach ($near_locations as $near_location) {
-						?><li>
-	        				<p><?php echo $near_location["Title"]; ?></p>
-	        				<address class="address">
-	        					<?php echo $near_location["Address"]?>, 
-	        					<?php echo $near_location["City"]?>, 
-	        					<?php echo $near_location["State"]?> 
-	        					<?php echo $near_location["Zip"]?>
-	        					<br>
-	        					<?php echo "Distance Away: " . $near_location["Distance"] . " miles"?>	        					
-	        				</address>
-	    				</li><?php	
-					}
-					echo '</ul>';
-				} else {
-					?><p> No products were found matching that search term.</p><?php 
-				}	
-			}
-		?>
+	
+	<!--<div id="searchresults">-->
+	<div class="infobox-wrapper">
+		<div id="infobox">
+			<?php
+				if($search_term != "") {
+					if (!empty($near_locations)) {
+						echo'<ul>';
+						foreach ($near_locations as $near_location) {
+							?><li>
+		        				<address class="address">
+		        					<!--
+		        					<?php echo $near_location["Bank"] ?>
+		        					
+		        					<?php echo $near_location["Title"]?>		        					
+		        					-->
+		        					<?php echo "<div class=\"bodyAddress\">"?>, 
+			        					<?php echo $near_location["Address"]?>, 
+			        					<?php echo $near_location["City"]?>, 
+			        					<?php echo $near_location["State"]?> 
+			        					<?php echo $near_location["Zip"]?>
+		        					<?php echo "</div>"?>, 
+		        					<?php echo "<div class=\"headerAddress\">"?>
+			        					<br>
+			        					<?php echo $near_location["Bank"] ?>
+			        					<br>
+			        					<?php echo $near_location["Title"]?>
+		        					<?php echo "</div>"?>, 
+		        					<?php echo "<div class=\"footerAddress\">"?>
+			        					<?php echo "Distance Away: " . $near_location["Distance"] . " miles"?>	        					
+			        					<br><br>
+			        					<?php echo "Checking Rate: " . $near_location["Checking"]?>
+			        					<br><br>
+			        					<?php echo "Saving Rate: " . $near_location["Saving"]?>
+		        					<?php echo "</div>"?>, 
+		        				</address>
+		    				</li><?php	
+						}
+						echo '</ul>';
+					} else {
+						?><p> No products were found matching that search term.</p><?php 
+					}	
+				}
+			?>
+		</div>
 	</div>	
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript">	
 		$("#locations").each(function(i) {
-			$(this).prepend('<iframe id="map" src="map.html" seamless="seamless" scrolling="no"></iframe>');
+			$(this).prepend('<iframe id="map" src="inc/map.php" seamless="seamless" scrolling="no"></iframe>');
 			console.log(i);
 		});
 		$(".static_map").remove();
