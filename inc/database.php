@@ -1,6 +1,6 @@
 <?php
 
-include("config.php");
+include("inc/config.php");
 
 //Model
 	try {
