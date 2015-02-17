@@ -22,10 +22,10 @@
 	<!--Search Bar div-->
 	<div id="container">
 		<div>
-			<h1>Search</h1>
+			<h1>Search Madison, WI</h1>
 			<form method="get" >
 				<input type="text" class="boxes" name="s" 
-				onFocus="this.value =''" onblur="this.value ='Enter Zip Code'"
+				onFocus="this.value =''" placeholder="Enter Zip Code"
 				value ="<?php if(isset($locations)) {
 					echo htmlspecialchars($search_term);
 				} else {
@@ -48,8 +48,9 @@
 						}?>>
 						10 miles away</option>										
 				</select>
-				<input type="submit" class="btn btn-primary btn-med" value="Submit">
+				<input type="submit" class="btn btn-primary btn-med subbut" value="Submit">
 			</form>
+			<p class="home_descrip">This site searches all banks and credit unions in the Madison Wi greater area.</p>
 		</div>
 	</div>
 	<!--Search Address Results div-->
@@ -64,29 +65,23 @@
 						foreach ($near_locations as $near_location) {
 							?><li>
 		        				<address class="address">
-		        					<!--
-		        					<?php echo $near_location["Bank"] ?>
-		        					
-		        					<?php echo $near_location["Title"]?>		        					
-		        					-->
-		        					<?php echo "<div class=\"bodyAddress\">"?>, 
+		        					<?php echo "<div class=\"bodyAddress\">"?> 
 			        					<?php echo $near_location["Address"]?>, 
 			        					<?php echo $near_location["City"]?>, 
 			        					<?php echo $near_location["State"]?> 
 			        					<?php echo $near_location["Zip"]?>
 		        					<?php echo "</div>"?>, 
 		        					<?php echo "<div class=\"headerAddress\">"?>
-			        					<br>
 			        					<?php echo $near_location["Bank"] ?>
 			        					<br>
 			        					<?php echo $near_location["Title"]?>
 		        					<?php echo "</div>"?>, 
 		        					<?php echo "<div class=\"footerAddress\">"?>
-			        					<?php echo "Distance Away: " . $near_location["Distance"] . " miles"?>	        					
+			        					<?php echo "Distance Away: " . round($near_location["Distance"],2) . " miles"?>	        					
 			        					<br><br>
-			        					<?php echo "Checking Rate: " . $near_location["Checking"]?>
+			        					<?php echo "Checking Rate: " . $near_location["Checking"] . "%"?>
 			        					<br><br>
-			        					<?php echo "Saving Rate: " . $near_location["Saving"]?>
+			        					<?php echo "Saving Rate: " . $near_location["Saving"] . "%"?>
 		        					<?php echo "</div>"?>, 
 		        				</address>
 		    				</li><?php	

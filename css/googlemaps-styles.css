@@ -3,10 +3,17 @@
 /*Forms*/
 .boxes {
 	height: 34px;
-  	
   	font-size: 18px;
   	line-height: 1.33;
   	border-radius: 4px;
+
+}
+.subbut {
+	margin-top: -6px;
+}
+
+.home_descrip {
+	color: white;
 }
 /*Search Results*/
 #searchresults {
