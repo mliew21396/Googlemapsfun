@@ -79,9 +79,9 @@
 		        					<?php echo "<div class=\"footerAddress\">"?>
 			        					<?php echo "Distance Away: " . round($near_location["Distance"],2) . " miles"?>	        					
 			        					<br><br>
-			        					<?php echo "Checking Rate: " . $near_location["Checking"] . "%"?>
+			        					<?php echo "Checking Rate: " . floatval($near_location["Checking"])*100 . "%"?>
 			        					<br><br>
-			        					<?php echo "Saving Rate: " . $near_location["Saving"] . "%"?>
+			        					<?php echo "Saving Rate: " . floatval($near_location["Saving"])*100 . "%"?>
 		        					<?php echo "</div>"?>, 
 		        				</address>
 		    				</li><?php	
