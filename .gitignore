@@ -1,2 +1,3 @@
+$git status
 #ignore pw and usernames of db
-inc/config.php
+/inc/config.php
